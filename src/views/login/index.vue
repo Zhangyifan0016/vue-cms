@@ -48,6 +48,7 @@ import UserApi from '../../api/user'
 import rules from './rules'
 import { mapActions } from 'vuex'
 export default {
+  name: 'index',
   data() {
     return {
       // loading加载状态
@@ -88,8 +89,30 @@ export default {
         }
       })
     },
-    handleSubmitLogin() {},
-    ...mapActions({})
+    async handleSubmitLogin() {
+      try {
+        const token = await this.login(this.loginForm)
+        console.log(token)
+        if (!token) return
+        this.$notify({ title: '提示', message: '登录成功', type: 'success' })
+        this.loadingStatus = true
+        // 登录之后表单清空
+        this.loginForm = {
+          username: '',
+          password: '',
+          code: '',
+          token: ''
+        }
+        //  this.$router.push('/')
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loadingStatus = false
+      }
+    },
+    ...mapActions({
+      login: 'user/login'
+    })
   }
 }
 </script>
