@@ -25,8 +25,13 @@ const login = (data) => {
   })
 }
 
+const getUserInfo = () => {
+  return request({ url: '/user/info', method: 'GET' })
+}
+
 // 导出api接口
 export default {
   getCaptcha,
-  login
+  login,
+  getUserInfo
 }

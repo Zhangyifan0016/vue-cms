@@ -103,7 +103,7 @@ export default {
           code: '',
           token: ''
         }
-        //  this.$router.push('/')
+        this.$router.push('/')
       } catch (error) {
         console.log(error)
       } finally {
