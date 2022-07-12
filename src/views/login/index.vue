@@ -51,18 +51,14 @@ export default {
   name: 'index',
   data() {
     return {
-      // loading加载状态
       loadingStatus: false,
-      // 验证码路径
       codeImageUrl: '',
-      // 登录参数
       loginForm: {
         username: '',
         password: '',
         code: '',
         token: ''
       },
-      // 登录表单验证规则
       rules
     }
   },
