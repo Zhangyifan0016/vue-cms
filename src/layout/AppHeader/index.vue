@@ -1,11 +1,15 @@
 <template>
   <div class="header">
-    <div class="letf">123</div>
+    <div class="letf">
+      <el-button icon="el-icon-s-fold"></el-button>
+      <tagsView></tagsView>
+    </div>
     <div class="right">
-      <el-avatar :size="40" :src="circleUrl"></el-avatar>
+      <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
-          下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ userInfo.username
+          }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="personSetting">个人设置</el-dropdown-item>
@@ -16,27 +20,67 @@
   </div>
 </template>
 <script>
+import tagsView from '../../components/tagsView'
 export default {
   name: 'index',
   data() {
     return {}
   },
-  methods: {}
+  components: {
+    tagsView
+  },
+  methods: {
+    handleCommand(command) {
+      switch (command) {
+        case 'personSetting':
+          this.personSetting()
+          break
+        case 'logout':
+          this.handleLogout()
+          break
+      }
+    },
+    personSetting() {
+      console.log(123)
+    },
+    handleLogout() {
+      console.log(12)
+    }
+  },
+  computed: {
+    userInfo() {
+      console.log(this.$store.getters.userInfo)
+      return this.$store.getters.userInfo
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
 .header {
   display: flex;
+  height: 60px;
+  justify-content: space-between;
   .left {
-    float: left;
     display: flex;
     align-items: center;
+    .el-button {
+      font-size: 25px;
+      color: #fff;
+    }
   }
 
   .right {
     display: flex;
-    float: right;
     align-items: center;
+    .el-avatar {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .el-dropdown-link {
+      cursor: pointer;
+      font-size: 18px;
+      color: #ffffff;
+    }
   }
 }
 </style>

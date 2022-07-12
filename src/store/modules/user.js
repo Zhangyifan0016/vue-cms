@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     token: getItem('token') || '',
-    userInfo: ''
+    userInfo: {}
   },
   mutations: {
     setToken(state, token) {
@@ -23,9 +23,9 @@ export default {
       return token
     },
     async getUserInfo({ commit }) {
-      const res = await UserApi.getUserInfo()
-      console.log(res)
-      return res
+      const userInfo = await UserApi.getUserInfo()
+      commit('setUserInfo', userInfo)
+      return userInfo
     }
   }
 }

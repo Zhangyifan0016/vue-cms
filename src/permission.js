@@ -9,17 +9,16 @@ const whiteList = ['/login']
 router.beforeEach(async (to, from, next) => {
   // 获取token
   const token = store.getters.token
-  // 获取用户信息
-  const userInfo = store.getters.userInfo
   if (token) {
     if (to.path === '/login') {
       next(from.path)
     } else {
-      if (!userInfo) {
+      if (!store.getters.hasUserInfo) {
         // 调取用户信息接口
         const res = await store.dispatch('user/getUserInfo')
-        console.log(res)
-        next()
+        if (res) {
+          next()
+        }
       }
       next()
     }
