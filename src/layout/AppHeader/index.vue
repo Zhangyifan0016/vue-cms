@@ -1,8 +1,9 @@
 <template>
   <div class="header">
-    <div class="letf">
-      <el-button icon="el-icon-s-fold"></el-button>
-      <tagsView></tagsView>
+    <div class="left">
+      <!-- <el-button icon="el-icon-s-fold"></el-button> -->
+      <Hamburger></Hamburger>
+      <TagsView></TagsView>
     </div>
     <div class="right">
       <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
@@ -20,14 +21,17 @@
   </div>
 </template>
 <script>
-import tagsView from '../../components/tagsView'
+import TagsView from '../../components/TagsView'
+import Hamburger from '../../components/Hamburger'
+
 export default {
   name: 'index',
   data() {
     return {}
   },
   components: {
-    tagsView
+    TagsView,
+    Hamburger
   },
   methods: {
     handleCommand(command) {
@@ -63,10 +67,6 @@ export default {
   .left {
     display: flex;
     align-items: center;
-    .el-button {
-      font-size: 25px;
-      color: #fff;
-    }
   }
 
   .right {
