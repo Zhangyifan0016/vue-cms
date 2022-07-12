@@ -5,7 +5,8 @@ export default {
   namespaced: true,
   state: {
     token: getItem('token') || '',
-    userInfo: {}
+    userInfo: {},
+    menuList: ''
   },
   mutations: {
     setToken(state, token) {
@@ -14,6 +15,9 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+    },
+    setMenuList(state, menuList) {
+      state.menuList = menuList
     }
   },
   actions: {
@@ -26,6 +30,11 @@ export default {
       const userInfo = await UserApi.getUserInfo()
       commit('setUserInfo', userInfo)
       return userInfo
+    },
+    async getMenuList({ commit }) {
+      const nav = await UserApi.getMenuList()
+      commit('setMenuList', nav.menus)
+      return nav
     }
   }
 }

@@ -1,17 +1,11 @@
 <template>
-  <div>
-    <menuTree></menuTree>
-  </div>
+  <div>123</div>
 </template>
 <script>
-import menuTree from './menuTree'
 export default {
   name: 'index',
   data() {
     return {}
-  },
-  components: {
-    menuTree
   },
   methods: {}
 }

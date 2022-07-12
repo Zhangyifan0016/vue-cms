@@ -25,13 +25,20 @@ const login = (data) => {
   })
 }
 
+// 获取用户信息
 const getUserInfo = () => {
   return request({ url: '/user/info', method: 'GET' })
+}
+
+// 获取用户菜单
+const getMenuList = () => {
+  return request({ url: '/menu/nav', method: 'GET' })
 }
 
 // 导出api接口
 export default {
   getCaptcha,
   login,
-  getUserInfo
+  getUserInfo,
+  getMenuList
 }

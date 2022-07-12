@@ -17,6 +17,8 @@ router.beforeEach(async (to, from, next) => {
         // 调取用户信息接口
         const res = await store.dispatch('user/getUserInfo')
         if (res) {
+          const nav = await store.dispatch('user/getMenuList')
+          console.log(nav)
           next()
         }
       }
