@@ -9,7 +9,9 @@
         :key="index"
       >
         {{ item.meta.title }}
-        <span v-if="!index == 0" @click.stop="handleCloseTag(index)">×</span>
+        <span v-if="!index == 0" @click.stop="handleCloseTag(index, item.path)"
+          >×</span
+        >
       </li>
     </ul>
   </div>
@@ -22,24 +24,27 @@ export default {
   data() {
     return {}
   },
-  methods: {
-    handleSelectTag(path) {
-      this.$router.push(path)
-    },
-    handleCloseTag(index) {
-      this.$store.commit('tagsView/removeTagItem', index)
-      const tagsView = this.$store.getters.tagsView
-      const path = tagsView[index]
-        ? tagsView[index].path
-        : tagsView[tagsView.length - 1].path
-      this.$router.push(path)
-    }
-  },
   computed: {
     tagsView() {
       return this.$store.getters.tagsView
     }
   },
+  methods: {
+    handleSelectTag(path) {
+      this.$router.push(path)
+    },
+    handleCloseTag(index, selectPath) {
+      this.$store.commit('tagsView/removeTagItem', index)
+      const tagsView = this.$store.getters.tagsView
+      if (selectPath === this.$route.path) {
+        const path = tagsView[index]
+          ? tagsView[index].path
+          : tagsView[tagsView.length - 1].path
+        this.$router.push(path)
+      }
+    }
+  },
+
   watch: {
     $route: {
       handler(to, from) {
