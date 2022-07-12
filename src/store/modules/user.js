@@ -35,6 +35,13 @@ export default {
       const nav = await UserApi.getMenuList()
       commit('setMenuList', nav.menus)
       return nav
+    },
+    async logout({ commit }) {
+      const res = await UserApi.logout()
+      commit('setToken', '')
+      commit('setUserInfo', {})
+      commit('setMenuList', '')
+      return res
     }
   }
 }

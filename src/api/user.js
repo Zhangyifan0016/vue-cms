@@ -25,6 +25,11 @@ const login = (data) => {
   })
 }
 
+// 退出接口
+const logout = () => {
+  return request({ url: '/logout', method: 'POST' })
+}
+
 // 获取用户信息
 const getUserInfo = () => {
   return request({ url: '/user/info', method: 'GET' })
@@ -39,6 +44,7 @@ const getMenuList = () => {
 export default {
   getCaptcha,
   login,
+  logout,
   getUserInfo,
   getMenuList
 }

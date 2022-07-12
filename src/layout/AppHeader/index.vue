@@ -44,8 +44,35 @@ export default {
     personSetting() {
       console.log(123)
     },
+    // 退出登录
     handleLogout() {
-      console.log(12)
+      this.$confirm('您确定退出系统吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      })
+        .then(async () => {
+          this.$notify({
+            title: '提示',
+            message: '正在退出...',
+            type: 'success',
+            duration: 500
+          })
+          await this.$store.dispatch('user/logout')
+          this.$nextTick(() => {
+            // 跳转到登录页面
+            this.$router.push('/login')
+          })
+
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          })
+        })
+        .catch(() => {
+          console.log('取消')
+        })
     }
   },
   computed: {
