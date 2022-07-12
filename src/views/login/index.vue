@@ -90,8 +90,13 @@ export default {
         const token = await this.login(this.loginForm)
         console.log(token)
         if (!token) return
-        this.$notify({ title: '提示', message: '登录成功', type: 'success' })
         this.loadingStatus = true
+        await this.$router.push('/')
+        this.$notify({ title: '提示', message: '登录成功', type: 'success' })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loadingStatus = false
         // 登录之后表单清空
         this.loginForm = {
           username: '',
@@ -99,11 +104,6 @@ export default {
           code: '',
           token: ''
         }
-        this.$router.push('/')
-      } catch (error) {
-        console.log(error)
-      } finally {
-        this.loadingStatus = false
       }
     },
     ...mapActions({
