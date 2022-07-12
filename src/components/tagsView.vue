@@ -8,28 +8,47 @@
         v-for="(item, index) in tagsView"
         :key="index"
       >
-        {{ item.title }}
-        <span @click.stop="handleCloseTag(index)"> </span>
+        {{ item.meta.title }}
+        <span v-if="!index == 0" @click.stop="handleCloseTag(index)">×</span>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { isTags } from '@/utils/tags'
+
 export default {
   name: 'TagsView',
   data() {
-    return {
-      tagsView: [
-        { path: '123', title: '1231' },
-        { path: '123', title: '1234' }
-      ]
-    }
+    return {}
   },
   methods: {
     handleSelectTag(path) {
       this.$router.push(path)
     },
-    handleCloseTag() {}
+    handleCloseTag(index) {
+      this.$store.commit('tagsView/removeTagItem', index)
+      const tagsView = this.$store.getters.tagsView
+      const path = tagsView[index]
+        ? tagsView[index].path
+        : tagsView[tagsView.length - 1].path
+      this.$router.push(path)
+    }
+  },
+  computed: {
+    tagsView() {
+      return this.$store.getters.tagsView
+    }
+  },
+  watch: {
+    $route: {
+      handler(to, from) {
+        if (isTags(to.path)) return
+        const { meta, path } = to
+        this.$store.dispatch('tagsView/setTagsView', { meta, path })
+      },
+      immediate: true
+    }
   }
 }
 </script>
@@ -61,12 +80,6 @@ export default {
       &.active {
         color: #fff;
         background-color: #e6a23c;
-      }
-      .close {
-        display: inline-block;
-        vertical-align: middle;
-        width: 16px !important;
-        height: 16px;
       }
     }
   }

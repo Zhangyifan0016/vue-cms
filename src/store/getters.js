@@ -4,6 +4,7 @@ const getters = {
   hasUserInfo: (state) => {
     return JSON.stringify(state.user.userInfo) !== '{}'
   },
-  menuList: (state) => state.user.menuList
+  menuList: (state) => state.user.menuList,
+  tagsView: (state) => state.tagsView.tagsView
 }
 export default getters
