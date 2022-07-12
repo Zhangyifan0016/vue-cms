@@ -1,8 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <!-- <el-button icon="el-icon-s-fold"></el-button> -->
-      <Hamburger></Hamburger>
+      <el-button icon="el-icon-s-fold"></el-button>
       <TagsView></TagsView>
     </div>
     <div class="right">
@@ -22,7 +21,6 @@
 </template>
 <script>
 import TagsView from '../../components/TagsView'
-import Hamburger from '../../components/Hamburger'
 
 export default {
   name: 'index',
@@ -30,8 +28,7 @@ export default {
     return {}
   },
   components: {
-    TagsView,
-    Hamburger
+    TagsView
   },
   methods: {
     handleCommand(command) {
@@ -67,6 +64,14 @@ export default {
   .left {
     display: flex;
     align-items: center;
+    .el-button {
+      border: none;
+      background: none;
+      color: #ffffff;
+      font-size: 25px;
+      height: 60px;
+      padding: 0;
+    }
   }
 
   .right {
