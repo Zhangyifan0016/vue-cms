@@ -40,6 +40,8 @@
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
+            :active-value="1"
+            :inactive-value="2"
             active-color="#13ce66"
             inactive-color="#ff4949"
           >

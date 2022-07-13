@@ -1,6 +1,6 @@
 <template>
   <el-container class="container">
-    <el-aside width="200px">
+    <el-aside :style="{ width: $store.getters.isCollapse ? '60px' : '200px' }">
       <AppAside></AppAside>
     </el-aside>
     <el-container>

@@ -1,10 +1,16 @@
 <template>
   <div class="header">
     <div class="left">
-      <el-button icon="el-icon-s-fold"></el-button>
+      <el-button
+        :icon="
+          $store.getters.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'
+        "
+        @click="handleChange"
+      ></el-button>
       <TagsView></TagsView>
     </div>
     <div class="right">
+      <ScreenFull class="screenFull"></ScreenFull>
       <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
@@ -20,6 +26,7 @@
   </div>
 </template>
 <script>
+import ScreenFull from '../../components/ScreenFull'
 import TagsView from '../../components/TagsView'
 
 export default {
@@ -28,7 +35,8 @@ export default {
     return {}
   },
   components: {
-    TagsView
+    TagsView,
+    ScreenFull
   },
   methods: {
     handleCommand(command) {
@@ -73,6 +81,9 @@ export default {
         .catch(() => {
           console.log('取消')
         })
+    },
+    handleChange() {
+      this.$store.dispatch('menus/changeCollapse')
     }
   },
   computed: {
@@ -112,6 +123,12 @@ export default {
       cursor: pointer;
       font-size: 18px;
       color: #ffffff;
+    }
+    .screenFull {
+      cursor: pointer;
+      font-size: 25px;
+      color: #ffffff;
+      margin-right: 10px;
     }
   }
 }

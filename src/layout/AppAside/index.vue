@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <menuTree></menuTree>
-  </div>
+  <menuTree></menuTree>
 </template>
 <script>
 import menuTree from './menuTree'
