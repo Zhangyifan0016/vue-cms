@@ -10,10 +10,9 @@ import store from './store'
 import './permission'
 // 引入公共样式
 import './styles/reset.scss'
-import { Plugin } from 'vue-fragment'
-Vue.use(Plugin)
-Vue.use(ElementUI)
 
+Vue.use(ElementUI)
+console.log(process.env)
 Vue.config.productionTip = false
 
 new Vue({

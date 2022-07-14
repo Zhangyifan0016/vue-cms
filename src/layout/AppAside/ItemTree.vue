@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <template v-if="menus && menus.component">
       <el-menu-item :index="menus.path">
         <i :class="'el-icon-' + menus.icon"></i>
@@ -23,7 +23,7 @@
         </ItemTree>
       </el-submenu>
     </template>
-  </fragment>
+  </div>
 </template>
 <script>
 export default {
