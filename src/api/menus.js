@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-const getMenuList = (data) => {
+const getMenusList = (data) => {
   return request({
     url:
       '/menu/list?current=' +
@@ -12,5 +12,16 @@ const getMenuList = (data) => {
     method: 'GET'
   })
 }
+const findOneMenus = (id) => {
+  return request({ url: `/menu/info/${id}`, method: 'GET' })
+}
 
-export default { getMenuList }
+const addMenus = (data) => {
+  return request({ url: '/menu/add', method: 'POST', data })
+}
+
+const saveEdit = (data) => {
+  return request({ url: '/menu/update', method: 'PUT', data })
+}
+
+export default { getMenusList, findOneMenus, addMenus, saveEdit }
