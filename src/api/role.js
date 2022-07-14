@@ -12,7 +12,7 @@ const getRoleList = (data) => {
     method: 'GET'
   })
 }
-
+// 分配角色
 const updateRole = (id, data) => {
   return request({
     url: `/user/assign/${id}`,
@@ -20,5 +20,16 @@ const updateRole = (id, data) => {
     data
   })
 }
+const findOneRole = (id) => {
+  return request({ url: `/role/info/${id}`, method: 'GET' })
+}
 
-export default { getRoleList, updateRole }
+const addRole = (data) => {
+  return request({ url: '/role/add', method: 'POST', data })
+}
+
+const saveEdit = (data) => {
+  return request({ url: '/role/update', method: 'PUT', data })
+}
+
+export default { getRoleList, updateRole, findOneRole, addRole, saveEdit }
