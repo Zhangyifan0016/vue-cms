@@ -11,6 +11,13 @@
     </div>
     <div class="right">
       <ScreenFull class="screenFull"></ScreenFull>
+      <el-tooltip effect="dark" content="关闭全部标签" placement="bottom">
+        <i
+          @click="handleRemoveAllTags"
+          class="el-icon-circle-close hand white"
+          style="font-size: 25px"
+        ></i>
+      </el-tooltip>
       <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
@@ -84,6 +91,10 @@ export default {
     },
     handleChange() {
       this.$store.dispatch('menus/changeCollapse')
+    },
+    handleRemoveAllTags() {
+      this.$store.dispatch('tagsView/removeAllTag')
+      this.$router.push('/')
     }
   },
   computed: {
@@ -123,6 +134,9 @@ export default {
       cursor: pointer;
       font-size: 18px;
       color: #ffffff;
+    }
+    .el-tooltip {
+      margin-right: 15px;
     }
     .screenFull {
       cursor: pointer;

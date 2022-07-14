@@ -18,11 +18,18 @@ export default {
     removeTagItem(state, index) {
       state.tagsView.splice(index, 1)
       setItem('tagsView', state.tagsView)
+    },
+    removeAllTag(state) {
+      state.tagsView = [{ meta: { title: '控制台' }, path: '/' }]
+      setItem('tagsView', state.tagsView)
     }
   },
   actions: {
     setTagsView({ commit }, payload) {
       commit('setTagsView', payload)
+    },
+    removeAllTag({ commit }) {
+      commit('removeAllTag')
     }
   }
 }
