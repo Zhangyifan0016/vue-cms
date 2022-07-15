@@ -1,18 +1,16 @@
 <template>
   <div>
-    <template v-if="menus && menus.component">
+    <template v-if="menus && !menus.children">
       <el-menu-item :index="menus.path">
-        <i :class="'el-icon-' + menus.icon"></i>
-        <span slot="title">{{ menus.label }}</span>
+        <i :class="'el-icon-' + menus.meta.icon"></i>
+        <span slot="title">{{ menus.meta.title }}</span>
       </el-menu-item>
     </template>
-    <template
-      v-if="menus && !menus.path && menus.children && menus.children.length > 0"
-    >
+    <template v-if="menus && menus.children">
       <el-submenu :index="menus.path">
         <template slot="title">
-          <i :class="'el-icon-' + menus.icon"></i>
-          <span>{{ menus.label }}</span>
+          <i :class="'el-icon-' + menus.meta.icon"></i>
+          <span>{{ menus.meta.title }}</span>
         </template>
         <ItemTree
           v-for="childItem in menus.children"

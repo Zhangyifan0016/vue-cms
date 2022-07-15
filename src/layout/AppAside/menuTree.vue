@@ -13,6 +13,9 @@
 </template>
 <script>
 import ItemTree from './ItemTree'
+import { filterMenuData } from '../../utils/menu'
+import { filterRoutes, generateMenus } from '../../utils/router'
+
 export default {
   name: 'menuTree',
   data() {
@@ -24,7 +27,9 @@ export default {
   methods: {},
   computed: {
     menuList() {
-      return this.$store.getters.menuList
+      // return this.$store.getters.menuList
+      const routes = filterRoutes(this.$router.getRoutes())
+      return filterMenuData(generateMenus(routes))
     },
     isCollapse() {
       return this.$store.getters.isCollapse

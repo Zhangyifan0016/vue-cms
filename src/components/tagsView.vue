@@ -63,6 +63,9 @@ export default {
   overflow-x: auto;
   .tags-view-list {
     margin-bottom: 5px;
+    overflow: hidden; //超出一行文字自动隐藏
+    text-overflow: ellipsis; //文字隐藏后添加省略号
+    white-space: nowrap; //强制不换行
     .tags-view-item {
       display: inline-block;
       position: relative;

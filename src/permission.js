@@ -18,8 +18,15 @@ router.beforeEach(async (to, from, next) => {
         const res = await store.dispatch('user/getUserInfo')
         if (res) {
           const nav = await store.dispatch('user/getMenuList')
-          console.log(nav)
-          next()
+          const authoritys = nav.authoritys
+          const filterRoutes = await store.dispatch(
+            'permission/filterRoutes',
+            authoritys
+          )
+          filterRoutes.forEach((item) => {
+            router.addRoute(item)
+          })
+          return next(to.path)
         }
       }
       next()
