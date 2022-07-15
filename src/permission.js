@@ -2,6 +2,9 @@
 import router from './router'
 // 引入vuex
 import store from './store'
+
+import { filterRoutes } from './utils/router'
+
 // 设置白名单
 const whiteList = ['/login']
 
@@ -18,15 +21,23 @@ router.beforeEach(async (to, from, next) => {
         const res = await store.dispatch('user/getUserInfo')
         if (res) {
           const nav = await store.dispatch('user/getMenuList')
-          const authoritys = nav.authoritys
-          const filterRoutes = await store.dispatch(
-            'permission/filterRoutes',
-            authoritys
-          )
-          filterRoutes.forEach((item) => {
-            router.addRoute(item)
-          })
-          return next(to.path)
+          const { menus } = nav
+          const routes = filterRoutes(menus)
+          console.log(routes)
+
+          if (routes.length > 0) {
+            routes.forEach((item) => {
+              router.addRoute('layout', item)
+            })
+            routes.push({
+              path: '/:catchAll(.*)', // 不识别的path自动匹配404
+              redirect: '/404'
+            })
+            return next(to.path)
+          }
+          next()
+        } else {
+          next('/login')
         }
       }
       next()

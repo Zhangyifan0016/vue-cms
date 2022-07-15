@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import user from './modules/user'
 import tagsView from './modules/tagsView'
 import menus from './modules/menus'
-import permission from './modules/permission'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -13,7 +12,6 @@ export default new Vuex.Store({
   modules: {
     user,
     tagsView,
-    menus,
-    permission
+    menus
   }
 })
