@@ -31,5 +31,19 @@ const addRole = (data) => {
 const saveEdit = (data) => {
   return request({ url: '/role/update', method: 'PUT', data })
 }
+const assignPermissions = (id, data) => {
+  return request({
+    url: `/role/perm/${id}`,
+    method: 'POST',
+    data: data
+  })
+}
 
-export default { getRoleList, updateRole, findOneRole, addRole, saveEdit }
+export default {
+  getRoleList,
+  updateRole,
+  findOneRole,
+  addRole,
+  saveEdit,
+  assignPermissions
+}

@@ -115,15 +115,55 @@
         <el-button type="primary" @click="handleConfirm">确 定</el-button>
       </div>
     </el-dialog>
+
+    <!-- 分配权限 -->
+    <el-dialog
+      center
+      :title="permissionDialogTitle"
+      :visible.sync="permissionDialogFormVisible"
+    >
+      <el-form :model="permissionForm">
+        <el-tree
+          ref="tree"
+          :data="menusList"
+          show-checkbox
+          node-key="id"
+          default-expand-all
+          check-strictly
+          :props="{ label: 'label', children: 'children' }"
+        >
+        </el-tree>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="permissionDialogFormVisible = false"
+          >取 消</el-button
+        >
+        <el-button type="primary" @click="handleSubmitPermission"
+          >确 定</el-button
+        >
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 import RoleApi from '../../../api/role'
+import MenusApi from '../../../api/menus'
 
 export default {
   name: 'index',
   data() {
     return {
+      permissionForm: {},
+      menusList: [],
+      menuIds: '',
+      permissionDialogTitle: '',
+      permissionDialogFormVisible: false,
+      permissionId: '',
+      menusForm: {
+        current: 1,
+        size: 10,
+        name: ''
+      },
       total: 0,
       roleForm: {
         current: 1,
@@ -143,6 +183,14 @@ export default {
     }
   },
   methods: {
+    async loadMenuList() {
+      try {
+        const menusList = await MenusApi.getMenusList(this.menusForm)
+        this.menusList = menusList
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async loadRoleList() {
       const roleList = await RoleApi.getRoleList(this.roleForm)
       this.roleList = roleList.records
@@ -172,6 +220,8 @@ export default {
     async handleFindRole(id) {
       const res = await RoleApi.findOneRole(id)
       this.diaLogForm = res
+      this.menuIds = res.menuIds
+      this.$refs.tree.setCheckedKeys(this.menuIds)
     },
     async handleConfirm() {
       if (this.diaLogForm.id) {
@@ -188,10 +238,22 @@ export default {
       console.log(this.diaLogForm)
       this.loadRoleList()
     },
-    handleOpenRoleDialog() {}
+    handleOpenRoleDialog(row) {
+      this.permissionDialogTitle = `给"${row.name}"分配权限`
+      this.permissionDialogFormVisible = true
+      this.handleFindRole(row.id)
+      this.permissionId = row.id
+    },
+    async handleSubmitPermission() {
+      const keys = this.$refs.tree.getCheckedKeys()
+      await RoleApi.assignPermissions(this.permissionId, keys)
+      this.permissionDialogFormVisible = false
+      this.handleGetRoleList()
+    }
   },
   created() {
     this.loadRoleList()
+    this.loadMenuList()
   }
 }
 </script>
